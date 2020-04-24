@@ -7,15 +7,16 @@ import Value from "./components/Value/Value";
 class App extends React.Component {
 
   state = {
-    number: 0,
+    number: "enter values and press 'set'",
     maxValue: 4,
     startValue: 2,
+    buttonBlock: "block",
+    buttonUnblock: "button"
   }
 
   onHandlerClickInc = () => {
     this.setState({
       number: this.state.number + 1,
-
     })
   }
   onHandlerClickReset = () => {
@@ -37,7 +38,9 @@ class App extends React.Component {
   }
   onHandlerClickSet = () => {
     this.setState({
-      number: this.state.startValue
+      number: this.state.startValue,
+      buttonBlock:"block",
+      buttonUnblock: "button"
     })
 
   }
@@ -56,7 +59,9 @@ class App extends React.Component {
       })
     }else {
       this.setState({
-        number: "enter values and press 'set'"
+        number: "enter values and press 'set'",
+        buttonBlock:"button",
+        buttonUnblock: "block"
       })
     }
 
@@ -64,8 +69,18 @@ class App extends React.Component {
 
   render = () => {
 
-    let classNameInc = this.state.number === this.state.maxValue ? "block" : "button"
-    let classNameReset = this.state.number === this.state.startValue ? "block" : "button";
+   let  classNameInc
+    if (this.state.number === this.state.maxValue) {
+      classNameInc = this.state.buttonBlock
+    } else {
+      classNameInc = this.state.buttonUnblock
+    }
+    let classNameReset
+    if (this.state.number === this.state.startValue) {
+      classNameReset = this.state.buttonBlock
+    } else {
+      classNameReset = this.state.buttonUnblock
+    }
 
     let numberColor
     let classNameSet
@@ -75,18 +90,20 @@ class App extends React.Component {
       classNameSet = "block"
       startColor = "input-elementRed"
       numberColor = "numberColor"
+      maxColor = "input-element"
 
     } else if (this.state.maxValue < 0) {
       classNameSet = "block"
       maxColor = "input-elementRed"
       numberColor = "numberColor"
+      startColor = "input-element"
     } else if (this.state.maxValue === this.state.startValue) {
       startColor = "input-elementRed"
       maxColor = "input-elementRed"
       classNameSet = "block"
       numberColor = "numberColor"
     } else {
-      classNameSet = "button"
+      classNameSet = this.state.buttonBlock
       startColor = "input-element"
       maxColor = "input-element"
       numberColor = ""
