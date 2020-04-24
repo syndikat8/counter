@@ -3,25 +3,31 @@ import Button from "../Counter/Button/Button";
 import Input from "./Input/Input";
 
 
-
-
 class Value extends React.Component {
 
 
-  render =()=> {
+  render = () => {
 
 
     return (
       <div className="counter">
         <div className="inputs">
-        <Input onHandlerChange={this.props.onHandlerChangeMax} value={this.props.maxValue} name="Max Value:"/>
-        <Input onHandlerChange={this.props.onHandlerChangeStart} value={this.props.startValue} name="Start Value:"/>
+          <Input className={this.props.maxColor}
+                 onHandlerChange={this.props.onHandlerChangeMax}
+                 value={this.props.maxValue}
+                 name="Max Value:"
+                 onCLickInput={this.props.onCLickInput}/>
+          <Input className={this.props.startColor}
+                 onHandlerChange={this.props.onHandlerChangeStart}
+                 value={this.props.startValue}
+                 onCLickInput={this.props.onCLickInput}
+                 name="Start Value:"/>
         </div>
-        <div className="buttons" >
+        <div className="buttons">
           <Button
-            className="button"
+            className={this.props.classNameSet}
             onHandlerClick={this.props.onHandlerClickSet}
-            name="Set" />
+            name="Set"/>
         </div>
       </div>
     );

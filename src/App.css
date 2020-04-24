@@ -1,93 +1,94 @@
 .App {
-  background-color: #282c34;
-  height: 100vh;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  text-align: center;
+    background-color: #282c34;
+    height: 100vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
 
 }
 
 .counter {
-  width: 400px;
-  height: 300px;
-  border-radius: 5px;
-  border: 5px solid cadetblue;
+    width: 400px;
+    height: 300px;
+    border-radius: 5px;
+    border: 5px solid cadetblue;
 }
 
 .span {
-  margin: 10px auto;
-  width: 95%;
-  height: 55%;
-  background-color: cadetblue;
-  border-radius: 5px;
+    margin: 10px auto;
+    width: 95%;
+    height: 55%;
+    background-color: cadetblue;
+    border-radius: 5px;
 }
 
-.span span{
-  display: flex;
-  justify-content: center;
-  height: 100%;
-  align-items: center;
-  font-size: 40px;
+.span span {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+    font-size: 25px;
 }
 
 .buttons {
-  margin: 0   auto;
-  width: 93%;
-  height: 100px;
-  border: 5px solid cadetblue;
-  border-radius: 5px;
-}
-.button {
-  background-color: cadetblue;
-  border-radius: 5px;
-  border: none;
-  height: 50px;
-  width: 100px;
-  margin: 20px;
-  font-size: 25px;
-}
-.incRed {
-  border-radius: 5px;
-  border: none;
-  height: 50px;
-  width: 100px;
-  margin: 20px;
-  font-size: 25px;
-  opacity: 0.5;
-  pointer-events: none;
+    margin: 0 auto;
+    width: 93%;
+    height: 100px;
+    border: 5px solid cadetblue;
+    border-radius: 5px;
 }
 
-.resetRed {
-  opacity: 0.5;
-  pointer-events: none;
-  border-radius: 5px;
-  border: none;
-  height: 50px;
-  width: 100px;
-  margin: 20px;
-  font-size: 25px;
+.button {
+    background-color: cadetblue;
+    border-radius: 5px;
+    border: none;
+    height: 50px;
+    width: 100px;
+    margin: 20px;
+    font-size: 25px;
 }
+
+
+.block {
+    opacity: 0.5;
+    pointer-events: none;
+    border-radius: 5px;
+    border: none;
+    height: 50px;
+    width: 100px;
+    margin: 20px;
+    font-size: 25px;
+}
+
 .numberColor {
-  color: red;
+    color: red;
 }
 
 .inputs {
-  margin: 10px auto;
-  width: 95%;
-  height: 55%;
-  background-color: cadetblue;
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+    margin: 10px auto;
+    width: 95%;
+    height: 55%;
+    background-color: cadetblue;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
-.input-item{
-  display: flex;
-  justify-content: space-evenly;
+.input-item {
+    display: flex;
+    justify-content: space-evenly;
 }
-.input-element{
-  border-radius: 5px;
-  border: 2px solid #282c34;
+
+.input-element {
+    border-radius: 5px;
+    border: 2px solid #282c34;
+}
+
+.input-elementRed {
+    background-color: indianred;
+    opacity: 0.6;
+    border-radius: 5px;
+    border: 2px solid red;
 }

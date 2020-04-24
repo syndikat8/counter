@@ -11,8 +11,9 @@ class Input extends React.Component {
       <div className="input-item">
         <span>{this.props.name}</span>
         <input
+          onClick={this.props.onCLickInput}
           onChange={this.onChange}
-          className="input-element"
+          className={this.props.className}
           type="number"
           value={this.props.value}
         />
