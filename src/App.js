@@ -61,8 +61,8 @@ class App extends React.Component {
     }, () => {
       this.saveState()
     })
-
   }
+
   onCLickInput = () => {
     if (this.state.startValue < 0) {
       this.setState({
@@ -97,7 +97,6 @@ class App extends React.Component {
         this.saveState()
       })
     }
-
   }
 
   render = () => {
