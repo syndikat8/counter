@@ -1,5 +1,5 @@
 import React from 'react';
-import Number from "./Number/Number";
+import CounterValue from "./CounterValue/CounterValue";
 import Button from "./Button/Button";
 
 
@@ -12,7 +12,7 @@ class Counter extends React.Component {
 
     return (
       <div className="counter">
-          <Number number={this.props.number} numberColor={this.props.numberColor}/>
+          <CounterValue counterValue={this.props.counterValue} numberColor={this.props.numberColor}/>
         <div className="buttons" >
           <Button
             className={this.props.classNameInc}

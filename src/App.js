@@ -12,11 +12,11 @@ class App extends React.Component {
   }
 
   state = {
-    number: 0,
+    counterValue: 0,
     maxValue: 4,
     startValue: 2,
-    buttonBlock: "block",
-    buttonUnblock: "button"
+    statusBlock: "block",
+    statusUnblock: "unblock"
   }
 
   saveState = () => {
@@ -33,12 +33,12 @@ class App extends React.Component {
 
   onHandlerClickInc = () => {
     this.setState({
-      number: this.state.number + 1,
+      counterValue: this.state.counterValue + 1,
     })
   }
   onHandlerClickReset = () => {
     this.setState({
-      number: this.state.startValue,
+      counterValue: this.state.startValue,
     })
   }
 
@@ -55,9 +55,9 @@ class App extends React.Component {
   }
   onHandlerClickSet = () => {
     this.setState({
-      number: this.state.startValue,
-      buttonBlock: "block",
-      buttonUnblock: "button"
+      counterValue: this.state.startValue,
+      statusBlock: "block",
+      statusUnblock: "unblock"
     }, () => {
       this.saveState()
     })
@@ -66,13 +66,13 @@ class App extends React.Component {
   onCLickInput = () => {
     if ((this.state.startValue || this.state.maxValue) < 0) {
       this.setState({
-        number: "incorrect value!"
+        counterValue: "incorrect value!"
       }, () => {
         this.saveState()
       })
     } else if (this.state.maxValue === this.state.startValue) {
       this.setState({
-        number: "incorrect value!"
+        counterValue: "incorrect value!"
       }, () => {
         this.saveState()
       })
@@ -84,9 +84,9 @@ class App extends React.Component {
       })
     } else {
       this.setState({
-        number: "enter values and press 'set'",
-        buttonBlock: "button",
-        buttonUnblock: "block"
+        counterValue: "enter values and press 'set'",
+        statusBlock: "unblock",
+        statusUnblock: "block"
       }, () => {
         this.saveState()
       })
@@ -95,19 +95,8 @@ class App extends React.Component {
 
   render = () => {
 
-    let classNameInc
-    if (this.state.number === this.state.maxValue) {
-      classNameInc = this.state.buttonBlock
-
-    } else {
-      classNameInc = this.state.buttonUnblock
-    }
-    let classNameReset
-    if (this.state.number === this.state.startValue) {
-      classNameReset = this.state.buttonBlock
-    } else {
-      classNameReset = this.state.buttonUnblock
-    }
+    let classNameInc =  this.state.counterValue === this.state.maxValue? this.state.statusBlock: this.state.statusUnblock
+    let classNameReset =  this.state.counterValue === this.state.startValue? this.state.statusBlock: this.state.statusUnblock
 
     let numberColor
     let classNameSet
@@ -129,13 +118,13 @@ class App extends React.Component {
       maxColor = "input-elementRed"
       classNameSet = "block"
       numberColor = "numberColor"
-    } else if (this.state.number === this.state.maxValue) {
+    } else if (this.state.counterValue === this.state.maxValue) {
       startColor = "input-element"
       maxColor = "input-element"
       classNameSet = "block"
       numberColor = "numberColor"
     } else {
-      classNameSet = this.state.buttonBlock
+      classNameSet = this.state.statusBlock
       startColor = "input-element"
       maxColor = "input-element"
       numberColor = ""
@@ -160,7 +149,7 @@ class App extends React.Component {
         <Counter
           classNameInc={classNameInc}
           classNameReset={classNameReset}
-          number={this.state.number}
+          counterValue={this.state.counterValue}
           numberColor={numberColor}
           onHandlerClickInc={this.onHandlerClickInc}
           onHandlerClickReset={this.onHandlerClickReset}/>
