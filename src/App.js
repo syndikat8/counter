@@ -25,7 +25,7 @@ class App extends React.Component {
 
   restoreState = () => {
     let stateAsString = restore();
-    if (stateAsString){
+    if (stateAsString) {
       let state = JSON.parse(stateAsString);
       this.setState(state)
     }
@@ -50,13 +50,13 @@ class App extends React.Component {
   }
   onHandlerChangeStart = (startNumber) => {
     return this.setState({
-      startValue: Number(startNumber) ,
+      startValue: Number(startNumber),
     })
   }
   onHandlerClickSet = () => {
     this.setState({
       number: this.state.startValue,
-      buttonBlock:"block",
+      buttonBlock: "block",
       buttonUnblock: "button"
     }, () => {
       this.saveState()
@@ -64,13 +64,7 @@ class App extends React.Component {
   }
 
   onCLickInput = () => {
-    if (this.state.startValue < 0) {
-      this.setState({
-        number: "incorrect value!"
-      }, () => {
-        this.saveState()
-      })
-    } else if (this.state.maxValue < 0) {
+    if ((this.state.startValue || this.state.maxValue) < 0) {
       this.setState({
         number: "incorrect value!"
       }, () => {
@@ -91,7 +85,7 @@ class App extends React.Component {
     } else {
       this.setState({
         number: "enter values and press 'set'",
-        buttonBlock:"button",
+        buttonBlock: "button",
         buttonUnblock: "block"
       }, () => {
         this.saveState()
@@ -101,9 +95,10 @@ class App extends React.Component {
 
   render = () => {
 
-   let  classNameInc
+    let classNameInc
     if (this.state.number === this.state.maxValue) {
       classNameInc = this.state.buttonBlock
+
     } else {
       classNameInc = this.state.buttonUnblock
     }
@@ -132,6 +127,11 @@ class App extends React.Component {
     } else if (this.state.maxValue === this.state.startValue) {
       startColor = "input-elementRed"
       maxColor = "input-elementRed"
+      classNameSet = "block"
+      numberColor = "numberColor"
+    } else if (this.state.number === this.state.maxValue) {
+      startColor = "input-element"
+      maxColor = "input-element"
       classNameSet = "block"
       numberColor = "numberColor"
     } else {
