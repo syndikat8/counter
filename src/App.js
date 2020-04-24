@@ -2,16 +2,33 @@ import React from 'react';
 import './App.css';
 import Counter from "./components/Counter/Counter";
 import Value from "./components/Value/Value";
+import {restore, save} from "./localStorge";
 
 
 class App extends React.Component {
 
+  componentDidMount() {
+    this.restoreState()
+  }
+
   state = {
-    number: "enter values and press 'set'",
+    number: 0,
     maxValue: 4,
     startValue: 2,
     buttonBlock: "block",
     buttonUnblock: "button"
+  }
+
+  saveState = () => {
+    save(this.state)
+  }
+
+  restoreState = () => {
+    let stateAsString = restore();
+    if (stateAsString){
+      let state = JSON.parse(stateAsString);
+      this.setState(state)
+    }
   }
 
   onHandlerClickInc = () => {
@@ -33,7 +50,7 @@ class App extends React.Component {
   }
   onHandlerChangeStart = (startNumber) => {
     return this.setState({
-      startValue: Number(startNumber),
+      startValue: Number(startNumber) ,
     })
   }
   onHandlerClickSet = () => {
@@ -41,6 +58,8 @@ class App extends React.Component {
       number: this.state.startValue,
       buttonBlock:"block",
       buttonUnblock: "button"
+    }, () => {
+      this.saveState()
     })
 
   }
@@ -48,20 +67,34 @@ class App extends React.Component {
     if (this.state.startValue < 0) {
       this.setState({
         number: "incorrect value!"
+      }, () => {
+        this.saveState()
       })
     } else if (this.state.maxValue < 0) {
       this.setState({
         number: "incorrect value!"
+      }, () => {
+        this.saveState()
       })
     } else if (this.state.maxValue === this.state.startValue) {
       this.setState({
         number: "incorrect value!"
+      }, () => {
+        this.saveState()
       })
-    }else {
+    } else if (this.state.maxValue < this.state.startValue) {
+      this.setState({
+        startValue: this.state.maxValue
+      }, () => {
+        this.saveState()
+      })
+    } else {
       this.setState({
         number: "enter values and press 'set'",
         buttonBlock:"button",
         buttonUnblock: "block"
+      }, () => {
+        this.saveState()
       })
     }
 
@@ -112,7 +145,6 @@ class App extends React.Component {
 
     return (
 
-
       <div className="App">
         <Value
           onCLickInput={this.onCLickInput}
@@ -125,7 +157,6 @@ class App extends React.Component {
           maxValue={this.state.maxValue}
           startValue={this.state.startValue}
         />
-
 
         <Counter
           classNameInc={classNameInc}
