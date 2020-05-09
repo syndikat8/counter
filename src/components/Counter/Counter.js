@@ -1,31 +1,35 @@
 import React from 'react';
 import CounterValue from "./CounterValue/CounterValue";
 import Button from "./Button/Button";
+import {connect} from "react-redux";
+import {buttonInc, buttonReset} from "../../redux/reducer";
 
 
+const Counter = (props) => {
 
-class Counter extends React.Component {
-
-
-  render =()=> {
-
-
-    return (
-      <div className="counter">
-          <CounterValue counterValue={this.props.counterValue} numberColor={this.props.numberColor}/>
-        <div className="buttons" >
-          <Button
-            className={this.props.classNameInc}
-            onHandlerClick={this.props.onHandlerClickInc}
-            name="Inc" />
-          <Button
-            className={this.props.classNameReset}
-            onHandlerClick={this.props.onHandlerClickReset}
-            name="Reset"/>
-        </div>
-      </div>
-    );
+  let onHandlerClickInc = () => {
+    props.buttonInc()
   }
+  let onHandlerClickReset = () => {
+    props.buttonReset()
+  }
+  return (
+    <div className="counter">
+      <CounterValue counterValue={props.counterValue} numberColor={props.numberColor}/>
+      <div className="buttons">
+        <Button
+          className={props.classNameInc}
+          onHandlerClick={onHandlerClickInc}
+          name="Inc"/>
+        <Button
+          className={props.classNameReset}
+          onHandlerClick={onHandlerClickReset}
+          name="Reset"/>
+      </div>
+    </div>
+  );
+
 }
 
-export default Counter;
+
+export default connect(null, {buttonInc, buttonReset})(Counter);

@@ -2,18 +2,14 @@ import React from 'react';
 
 
 
-class CounterValue extends React.Component {
-
-
-  render =()=> {
-
+const CounterValue = (props) => {
 
     return (
       <div className="span">
-      <span className={this.props.numberColor}>{this.props.counterValue}</span>
+      <span className={props.numberColor}>{props.counterValue}</span>
       </div>
     );
-  }
+
 }
 
 export default CounterValue;

@@ -1,25 +1,27 @@
 import React from 'react';
 
 
-class Input extends React.Component {
+const Input = (props) => {
 
-  onChange = (e) => {
-    this.props.onHandlerChange(e.target.value)
+  let onChange = (e) => {
+    props.onHandlerChange(e.target.value)
   }
-  render = () => {
-    return (
-      <div className="input-item">
-        <span>{this.props.name}</span>
-        <input
-          onClick={this.props.onCLickInput}
-          onChange={this.onChange}
-          className={this.props.className}
-          type="number"
-          value={this.props.value}
-        />
-      </div>
-    );
+  let onCLickInput = () => {
+    props.onCLickInput()
   }
+
+  return (
+    <div className="input-item">
+      <span>{props.name}</span>
+      <input
+        onClick={onCLickInput}
+        onChange={onChange}
+        className={props.className}
+        type="number"
+        value={props.value}
+      />
+    </div>
+  );
 }
 
 export default Input;
