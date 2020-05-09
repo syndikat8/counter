@@ -2,129 +2,65 @@ import React from 'react';
 import './App.css';
 import Counter from "./components/Counter/Counter";
 import Value from "./components/Value/Value";
-import {restore, save} from "./localStorge";
+import {connect} from "react-redux";
+import {buttonInc, buttonReset, buttonSet, changeInput, changeValueMax, changeValueStart} from "./redux/reducer";
 
 
 class App extends React.Component {
 
-  componentDidMount() {
-    this.restoreState()
-  }
-
-  state = {
-    counterValue: 0,
-    maxValue: 4,
-    startValue: 2,
-    statusBlock: "block",
-    statusUnblock: "unblock"
-  }
-
-  saveState = () => {
-    save(this.state)
-  }
-
-  restoreState = () => {
-    let stateAsString = restore();
-    if (stateAsString) {
-      let state = JSON.parse(stateAsString);
-      this.setState(state)
-    }
-  }
-
   onHandlerClickInc = () => {
-    this.setState({
-      counterValue: this.state.counterValue + 1,
-    })
+    this.props.buttonInc()
   }
   onHandlerClickReset = () => {
-    this.setState({
-      counterValue: this.state.startValue,
-    })
+    this.props.buttonReset()
   }
 
   onHandlerChangeMax = (maxNumber) => {
-    return this.setState({
-      maxValue: Number(maxNumber),
-    })
-
+    this.props.changeValueMax(maxNumber)
   }
   onHandlerChangeStart = (startNumber) => {
-    return this.setState({
-      startValue: Number(startNumber),
-    })
+    this.props.changeValueStart(startNumber)
   }
   onHandlerClickSet = () => {
-    this.setState({
-      counterValue: this.state.startValue,
-      statusBlock: "block",
-      statusUnblock: "unblock"
-    }, () => {
-      this.saveState()
-    })
+    this.props.buttonSet()
   }
 
   onCLickInput = () => {
-    if ((this.state.startValue || this.state.maxValue) < 0) {
-      this.setState({
-        counterValue: "incorrect value!"
-      }, () => {
-        this.saveState()
-      })
-    } else if (this.state.maxValue === this.state.startValue) {
-      this.setState({
-        counterValue: "incorrect value!"
-      }, () => {
-        this.saveState()
-      })
-    } else if (this.state.maxValue < this.state.startValue) {
-      this.setState({
-        startValue: this.state.maxValue
-      }, () => {
-        this.saveState()
-      })
-    } else {
-      this.setState({
-        counterValue: "enter values and press 'set'",
-        statusBlock: "unblock",
-        statusUnblock: "block"
-      }, () => {
-        this.saveState()
-      })
-    }
+    this.props.changeInput()
   }
 
   render = () => {
 
-    let classNameInc =  this.state.counterValue === this.state.maxValue? this.state.statusBlock: this.state.statusUnblock
-    let classNameReset =  this.state.counterValue === this.state.startValue? this.state.statusBlock: this.state.statusUnblock
+    let classNameInc =  this.props.counterValue === this.props.maxValue? this.props.statusBlock: this.props.statusUnblock
+    let classNameReset =  this.props.counterValue === this.props.startValue? this.props.statusBlock: this.props.statusUnblock
 
     let numberColor
     let classNameSet
     let startColor
     let maxColor
-    if (this.state.startValue < 0) {
+    if (this.props.startValue < 0) {
       classNameSet = "block"
       startColor = "input-elementRed"
       numberColor = "numberColor"
       maxColor = "input-element"
 
-    } else if (this.state.maxValue < 0) {
+    } else if (this.props.maxValue < 0) {
       classNameSet = "block"
       maxColor = "input-elementRed"
       numberColor = "numberColor"
       startColor = "input-element"
-    } else if (this.state.maxValue === this.state.startValue) {
+    } else if (this.props.maxValue === this.props.startValue) {
       startColor = "input-elementRed"
       maxColor = "input-elementRed"
       classNameSet = "block"
       numberColor = "numberColor"
-    } else if (this.state.counterValue === this.state.maxValue) {
+    } else if (this.props.counterValue === this.props.maxValue) {
       startColor = "input-element"
       maxColor = "input-element"
       classNameSet = "block"
       numberColor = "numberColor"
     } else {
-      classNameSet = this.state.statusBlock
+      classNameSet = this.props.statusBlock
       startColor = "input-element"
       maxColor = "input-element"
       numberColor = ""
@@ -142,14 +78,14 @@ class App extends React.Component {
           onHandlerClickSet={this.onHandlerClickSet}
           onHandlerChangeMax={this.onHandlerChangeMax}
           onHandlerChangeStart={this.onHandlerChangeStart}
-          maxValue={this.state.maxValue}
-          startValue={this.state.startValue}
+          maxValue={this.props.maxValue}
+          startValue={this.props.startValue}
         />
 
         <Counter
           classNameInc={classNameInc}
           classNameReset={classNameReset}
-          counterValue={this.state.counterValue}
+          counterValue={this.props.counterValue}
           numberColor={numberColor}
           onHandlerClickInc={this.onHandlerClickInc}
           onHandlerClickReset={this.onHandlerClickReset}/>
@@ -158,4 +94,16 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    counterValue: state.counterValue,
+    maxValue: state.maxValue,
+    startValue: state.startValue,
+    statusBlock: state.statusBlock,
+    statusUnblock: state.statusUnblock,
+  }
+}
+
+
+
+export default connect(mapStateToProps,{buttonInc,buttonReset,buttonSet,changeValueStart,changeValueMax,changeInput})(App) ;
